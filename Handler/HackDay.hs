@@ -2,7 +2,6 @@ module Handler.HackDay where
 
 import Import
 import Data.Time.Clock
-import Model
 
 data HackDayForm = HackDayForm
     { formTitle :: Text
@@ -16,23 +15,24 @@ hackDayForm mForm = HackDayForm
 getHackDayR :: Handler Html
 getHackDayR = do
     (widget, enctype) <- generateFormPost $ renderBootstrap (hackDayForm Nothing)
-    allHackdays <- runDB $ selectList ([] :: [Filter HackDay]) [Desc HackDayCreated]
+    allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
     liftIO $ print allHackdays
     defaultLayout $ do
         setTitle "Hackday!"
         $(widgetFile "listhackdays")
 
 postHackDayR :: Handler Html
-postHackDayR = undefined
-    --do
-    --((res, widget), enctype) <- runFormPost $ renderBootstrap (hackDayForm Nothing)
-    --case res of
-    --    FormSuccess hackForm -> do 
-    --                        currentTime <- liftIO $ getCurrentTime
-    --                        _ <- runDB $ insert $ HackDay (title hackForm) currentTime
-    --                        defaultLayout [whamlet|"Success!"|]
+postHackDayR = do
+    ((res, widget), enctype) <- runFormPost $ renderBootstrap (hackDayForm Nothing)
+    case res of
+        FormSuccess hackForm -> do
+                            currentTime <- liftIO $ getCurrentTime
+                            _ <- runDB $ insert $ HackDay (formTitle hackForm) currentTime
+                            defaultLayout [whamlet|"Success!"|]
 
-    --    _                    -> defaultLayout $(widgetFile "listhackdays")
+        _                    -> do
+                            allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
+                            defaultLayout $(widgetFile "listhackdays")
 
 
 --postUserR :: Handler Html
