@@ -2,6 +2,7 @@ module Handler.Project where
 
 import Import
 import Handler.HackDayDetails
+import Data.Time.Clock
 
 postProjectR :: HackDayId -> Handler Html
 postProjectR hackDayID = do
@@ -9,7 +10,8 @@ postProjectR hackDayID = do
     ((res, widget), enctype) <- runFormPost $ renderBootstrap (projectForm Nothing)
     case res of
         FormSuccess form -> do
-                        runDB $ insert $ Project hackDayID (name form) (creators form)
+                        currentTime <- liftIO $ getCurrentTime
+                        runDB $ insert $ Project hackDayID (name form) (creators form) 0 currentTime
                         redirect $ HackDayDetailsR hackDayID
         _                -> do
                         projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) []
