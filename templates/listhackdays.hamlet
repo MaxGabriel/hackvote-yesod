@@ -7,6 +7,8 @@
 <h2>Past Hackdays
 
 <ul>
-    $forall Entity _ hackday <- allHackdays
+    $forall Entity id hackday <- allHackdays
         <li>
-            #{hackDayTitle hackday}
+            <a href=@{HackDayDetailsR id}>#{hackDayTitle hackday}
+            
+            
