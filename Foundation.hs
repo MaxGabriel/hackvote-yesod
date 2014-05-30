@@ -83,7 +83,7 @@ instance Yesod App where
     urlRenderOverride _ _ = Nothing
 
     -- The page to be redirected to when authentication is required.
-    authRoute _ = Just $ AuthR LoginR
+    authRoute _ = undefined -- not using auth
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
@@ -114,25 +114,25 @@ instance YesodPersist App where
 instance YesodPersistRunner App where
     getDBRunner = defaultGetDBRunner connPool
 
-instance YesodAuth App where
-    type AuthId App = UserId
+--instance YesodAuth App where
+--    type AuthId App = UserId
 
-    -- Where to send a user after successful login
-    loginDest _ = HomeR
-    -- Where to send a user after logout
-    logoutDest _ = HomeR
+--    -- Where to send a user after successful login
+--    loginDest _ = HomeR
+--    -- Where to send a user after logout
+--    logoutDest _ = HomeR
 
-    getAuthId creds = runDB $ do
-        x <- getBy $ UniqueUser $ credsIdent creds
-        case x of
-            Just (Entity uid _) -> return $ Just uid
-            Nothing -> do
-                fmap Just $ insert $ User (credsIdent creds) Nothing
+--    getAuthId creds = runDB $ do
+--        x <- getBy $ UniqueUser $ credsIdent creds
+--        case x of
+--            Just (Entity uid _) -> return $ Just uid
+--            Nothing -> do
+--                fmap Just $ insert $ User (credsIdent creds) Nothing
 
-    -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def, authGoogleEmail]
+--    -- You can add other plugins like BrowserID, email or OAuth here
+--    authPlugins _ = [authBrowserId def, authGoogleEmail]
 
-    authHttpManager = httpManager
+--    authHttpManager = httpManager
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.

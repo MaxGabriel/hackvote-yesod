@@ -1,9 +1,9 @@
 Default: &defaults
-  user: HackVote
-  password: HackVote
+  user: postgres
+  password: postgres
   host: localhost
   port: 5432
-  database: HackVote
+  database: hackvote
   poolsize: 10
 
 Development:
