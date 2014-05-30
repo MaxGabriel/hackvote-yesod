@@ -1,0 +1,5 @@
+<h1>Hackdays
+
+<form method=post action=@{HackDayR} enctype=#{enctype}>
+    ^{widget}
+    <button class="btn btn-large btn-primary">Create new Hackday!

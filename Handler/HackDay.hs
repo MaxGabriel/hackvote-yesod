@@ -2,8 +2,21 @@ module Handler.HackDay where
 
 import Import
 
-getHackDayR :: id -> Handler Html
-getHackDayR = error "Not yet implemented: getHackDayR"
+data HackDayForm = HackDayForm
+    { title :: Text 
+    }
+  deriving Show
 
-postHackDayR :: id -> Handler Html
+hackDayForm :: Maybe HackDayForm -> AForm Handler HackDayForm
+hackDayForm mForm = HackDayForm
+        <$> areq textField "Title" (title <$> mForm)
+
+getHackDayR :: Handler Html
+getHackDayR = do
+    (widget, enctype) <- generateFormPost $ renderBootstrap (hackDayForm Nothing)
+    defaultLayout $ do
+        setTitle "Hackday!"
+        $(widgetFile "listhackdays")
+
+postHackDayR :: Handler Html
 postHackDayR = error "Not yet implemented: postHackDayR"

@@ -5,3 +5,5 @@
 
 / HomeR GET POST
 
+/hackdays/ HackDayR GET POST
+/hackdays/#HackDayId HackDayDetailsR GET
