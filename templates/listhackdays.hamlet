@@ -3,3 +3,10 @@
 <form method=post action=@{HackDayR} enctype=#{enctype}>
     ^{widget}
     <button class="btn btn-large btn-primary">Create new Hackday!
+
+<h2>Past Hackdays
+
+<ul>
+    $forall Entity _ hackday <- allHackdays
+        <li>
+            #{hackDayTitle hackday}
