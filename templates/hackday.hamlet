@@ -1,7 +1,12 @@
 <h1> A hack day!
 
+<ul>
+    $forall Entity id project <- projects
+        <li>
+            #{projectTitle project}
+
 <h2> Add New Project
 
-<form method=post action="" enctype=#{enctype}>
+<form method=post action=@{ProjectR hackDayID} enctype=#{enctype}>
     ^{widget}
     <button class="btn btn-large btn-primary">Add Project!

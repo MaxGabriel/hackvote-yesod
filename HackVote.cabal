@@ -22,6 +22,7 @@ library
                      Handler.Home
                      Handler.HackDay
                      Handler.HackDayDetails
+                     Handler.Project
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
