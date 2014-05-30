@@ -1,0 +1,7 @@
+<h1> A hack day!
+
+<h2> Add New Project
+
+<form method=post action="" enctype=#{enctype}>
+    ^{widget}
+    <button class="btn btn-large btn-primary">Add Project!

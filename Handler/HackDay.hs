@@ -27,8 +27,8 @@ postHackDayR = do
     case res of
         FormSuccess hackForm -> do
                             currentTime <- liftIO $ getCurrentTime
-                            _ <- runDB $ insert $ HackDay (formTitle hackForm) currentTime
-                            defaultLayout [whamlet|"Success!"|]
+                            hackId <- runDB $ insert $ HackDay (formTitle hackForm) currentTime
+                            redirect (HackDayDetailsR hackId)
 
         _                    -> do
                             allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
