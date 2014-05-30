@@ -1,0 +1,24 @@
+Default: &defaults
+  user: HackVote
+  password: HackVote
+  host: localhost
+  port: 5432
+  database: HackVote
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: HackVote_test
+  <<: *defaults
+
+Staging:
+  database: HackVote_staging
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: HackVote_production
+  poolsize: 100
+  <<: *defaults
