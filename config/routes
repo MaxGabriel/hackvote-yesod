@@ -3,7 +3,7 @@
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
-/ HomeR GET POST
+/ HomeR GET
 
 /hackdays/ HackDayR GET POST
 /hackdays/#HackDayId HackDayDetailsR GET
