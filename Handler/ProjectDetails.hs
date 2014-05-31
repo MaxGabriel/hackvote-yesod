@@ -41,5 +41,4 @@ getVotes hackDayId = do
             return defaultVotes
 
 voteFor :: ProjectId -> Handler ()
-voteFor projectId = do
-    runDB $ updateWhere [ProjectId ==. projectId] [ProjectVotes +=. 1]
+voteFor projectId = runDB $ updateWhere [ProjectId ==. projectId] [ProjectVotes +=. 1]
