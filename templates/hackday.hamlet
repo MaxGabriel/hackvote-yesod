@@ -4,6 +4,8 @@
     $forall Entity id project <- projects
         <li>
             #{projectTitle project}
+            <form method=post action=@{ProjectDetailsR id}>
+                <button class="btn btn-primary"> Vote!
 
 <h2> Add New Project
 

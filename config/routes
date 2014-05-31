@@ -8,3 +8,4 @@
 /hackdays/ HackDayR GET POST
 /hackdays/#HackDayId HackDayDetailsR GET
 /hackdays/#HackDayId/projects ProjectR POST
+/projects/#ProjectId ProjectDetailsR POST

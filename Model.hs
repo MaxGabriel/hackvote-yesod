@@ -2,7 +2,7 @@ module Model where
 
 import Prelude
 import Yesod
-import Data.Text (Text)
+import Data.Text (Text,pack)
 import Database.Persist.Quasi
 import Data.Typeable (Typeable)
 import Data.Time
@@ -13,3 +13,12 @@ import Data.Time
 -- http://www.yesodweb.com/book/persistent/
 share [mkPersist sqlOnlySettings, mkMigrate "migrateAll"]
     $(persistFileWith lowerCaseSettings "config/models")
+
+defaultVotes :: Int
+defaultVotes = 3
+
+defaultVotesText :: Text
+defaultVotesText = pack $ show defaultVotes
+
+remainingVotesKey :: HackDayId -> Text
+remainingVotesKey hackDayId = pack $ "remainingVotes" ++ show hackDayId

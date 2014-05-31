@@ -23,6 +23,7 @@ library
                      Handler.HackDay
                      Handler.HackDayDetails
                      Handler.Project
+                     Handler.ProjectDetails
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
