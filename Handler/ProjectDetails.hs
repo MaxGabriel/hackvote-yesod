@@ -33,10 +33,8 @@ readInt text = case TR.decimal text of
 -- If not present in the session, sets it to the default value.
 getVotes :: HackDayId -> Handler Int
 getVotes hackDayId = do
-    maybeVotes <- lookupSession $ remainingVotesKey hackDayId
-    liftIO $ print maybeVotes
-    let maybeIntVotes = maybeVotes >>= readInt
-      in case maybeIntVotes of
+    maybeVotesText <- lookupSession $ remainingVotesKey hackDayId
+    case maybeVotesText >>= readInt of
         Just votes -> return votes
         Nothing -> do
             setSession (remainingVotesKey hackDayId) defaultVotesText
