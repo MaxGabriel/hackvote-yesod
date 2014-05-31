@@ -3,7 +3,7 @@
 <ul>
     $forall Entity id project <- projects
         <li>
-            #{projectTitle project}
+            #{projectTitle project} by #{projectCreators project} — #{projectVotes project} votes
             <form method=post action=@{ProjectDetailsR id}>
                 <button class="btn btn-primary"> Vote!
 

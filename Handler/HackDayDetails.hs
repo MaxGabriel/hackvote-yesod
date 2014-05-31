@@ -16,7 +16,7 @@ projectForm mForm = ProjectForm
 getHackDayDetailsR :: HackDayId -> Handler Html
 getHackDayDetailsR hackDayID = do
     hackDay <- runDB $ get404 hackDayID
-    projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) []
+    projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) [Asc ProjectId]
     (widget, enctype) <- generateFormPost $ renderBootstrap (projectForm Nothing)
     defaultLayout $ do
         setTitle $ toHtml $ hackDayTitle hackDay

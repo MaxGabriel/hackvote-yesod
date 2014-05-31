@@ -14,6 +14,6 @@ postProjectR hackDayID = do
                         runDB $ insert $ Project hackDayID (name form) (creators form) 0 currentTime
                         redirect $ HackDayDetailsR hackDayID
         _                -> do
-                        projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) []
+                        projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) [Asc ProjectId]
                         defaultLayout $ $(widgetFile "hackday")
     
