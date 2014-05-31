@@ -24,6 +24,7 @@ library
                      Handler.HackDayDetails
                      Handler.Project
                      Handler.ProjectDetails
+                     App.Voting
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
