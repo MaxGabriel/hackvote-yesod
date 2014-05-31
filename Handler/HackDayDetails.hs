@@ -2,6 +2,8 @@ module Handler.HackDayDetails where
 
 import Import
 
+import App.Voting (getVotes)
+
 data ProjectForm = ProjectForm
     { name :: Text
     , creators :: Text
@@ -15,6 +17,7 @@ projectForm mForm = ProjectForm
 
 getHackDayDetailsR :: HackDayId -> Handler Html
 getHackDayDetailsR hackDayID = do
+    remainingVotes <- getVotes hackDayID
     hackDay <- runDB $ get404 hackDayID
     projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) [Asc ProjectId]
     (widget, enctype) <- generateFormPost $ renderBootstrap (projectForm Nothing)

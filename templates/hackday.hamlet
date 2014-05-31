@@ -1,11 +1,14 @@
 <h1> A hack day!
 
+<h2> #{remainingVotes} votes remaining
+
 <ul>
     $forall Entity id project <- projects
         <li>
             #{projectTitle project} by #{projectCreators project} — #{projectVotes project} votes
-            <form method=post action=@{ProjectDetailsR id}>
-                <button class="btn btn-primary"> Vote!
+            $if remainingVotes > 0
+                <form method=post action=@{ProjectDetailsR id}>
+                    <button class="btn btn-primary"> Vote!
 
 <h2> Add New Project
 
