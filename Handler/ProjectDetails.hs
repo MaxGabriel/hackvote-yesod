@@ -23,10 +23,11 @@ postProjectDetailsR projectId = do
     --                     let votes = read votes :: Int
     --    Nothing -> 
     --error "Not yet implemented: putProjectDetailsR"
-readInt :: Text -> Int
+
+readInt :: Text -> Maybe Int
 readInt text = case TR.decimal text of
-                Right (int,_) -> int
-                Left _ -> error "Invalid Remaining Votes Key" -- Probably should return Nothing here, and default to 3
+                Right (int,_) -> Just int
+                Left _ -> Nothing -- Probably should return Nothing here, and default to 3
 
 -- Gets the remaining votes for the given HackDay
 -- If not present in the session, sets it to the default value.
@@ -34,7 +35,7 @@ getVotes :: HackDayId -> Handler Int
 getVotes hackDayId = do
     maybeVotes <- lookupSession $ remainingVotesKey hackDayId
     liftIO $ print maybeVotes
-    let maybeIntVotes = fmap (readInt) maybeVotes
+    let maybeIntVotes = maybeVotes >>= readInt
       in case maybeIntVotes of
         Just votes -> return votes
         Nothing -> do
