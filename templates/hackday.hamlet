@@ -1,4 +1,4 @@
-<h1> A hack day!
+<h1> #{hackDayTitle hackDay}
 
 <h2> #{remainingVotes} votes remaining
 

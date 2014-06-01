@@ -25,7 +25,6 @@ getHackDayR :: Handler Html
 getHackDayR = do
     (widget, enctype) <- generateFormPost $ renderBootstrap (hackDayForm Nothing)
     allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
-    liftIO $ print allHackdays
     defaultLayout $ do
         setTitle "Hackday!"
         $(widgetFile "listhackdays")

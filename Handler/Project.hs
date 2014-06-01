@@ -7,7 +7,7 @@ import App.Voting (getVotes)
 
 postProjectR :: HackDayId -> Handler Html
 postProjectR hackDayID = do
-    hackday <- runDB $ get404 hackDayID
+    hackDay <- runDB $ get404 hackDayID
     ((res, widget), enctype) <- runFormPost $ renderBootstrap (projectForm Nothing)
     case res of
         FormSuccess form -> do

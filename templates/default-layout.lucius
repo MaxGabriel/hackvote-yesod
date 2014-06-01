@@ -24,15 +24,3 @@ nav {
 		text-decoration: none;
 	}
 }
-
-.verticalLine {
-    border-left: thick solid #ff0000;
-    height: 600px;
-    display:inline-block;
-}
-
-/*nav a {
-	color: white;
-	font-weight: bold;
-	text-transform: uppercase;
-}*/
