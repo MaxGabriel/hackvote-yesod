@@ -1,0 +1,17 @@
+#titleField::-webkit-input-placeholder {
+	font-style:italic;
+}
+
+#titleField::-moz-placeholder {
+	font-style:italic;	
+}
+
+#pastHackdaysContainer {
+	text-align: center;
+	
+	ul {
+		list-style-type: none;
+		padding:0; 
+		margin:0;	
+	}
+}

@@ -1,14 +1,16 @@
-<h1>Hackdays
 
-<form method=post action=@{HackDayR} enctype=#{enctype}>
-    ^{widget}
-    <button class="btn btn-large btn-primary">Create new Hackday!
+<div class="center hero-unit">
+    <h2 style="text-align: center;">New Hackday
+    <form method=post action=@{HackDayR} enctype=#{enctype} style="text-align: center;">
+        ^{widget}
+        <button class="btn btn-large btn-primary">Create new Hackday!
 
-<h2>Past Hackdays
-
-<ul>
-    $forall Entity id hackday <- allHackdays
-        <li>
-            <a href=@{HackDayDetailsR id}>#{hackDayTitle hackday}
+    
+<div id="pastHackdaysContainer">
+    <h2>Past Hackdays
+    <ul>
+        $forall Entity id hackday <- allHackdays
+            <li>
+                <h4><a href=@{HackDayDetailsR id}>#{hackDayTitle hackday}</a>
             
             

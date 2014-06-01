@@ -8,9 +8,18 @@ data HackDayForm = HackDayForm
     }
   deriving Show
 
+
+titleSettings = FieldSettings
+    { fsLabel = "Title"
+    , fsTooltip = Nothing
+    , fsId = Just "titleField"
+    , fsName = Nothing
+    , fsAttrs = [("placeholder","June Hackday"),("style","text-align: center;")]
+    }
+
 hackDayForm :: Maybe HackDayForm -> AForm Handler HackDayForm
 hackDayForm mForm = HackDayForm
-        <$> areq textField "Title" (formTitle <$> mForm)
+        <$> areq textField titleSettings (formTitle <$> mForm)
 
 getHackDayR :: Handler Html
 getHackDayR = do

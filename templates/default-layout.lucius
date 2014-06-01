@@ -7,6 +7,7 @@ nav {
 	background-color: black;
 	background-image: url(@{StaticR img_congruent_outline_png});
 	padding-left: 20px;
+	margin-bottom: 20px;
 	height: #{navHeight};
 
 	a {
@@ -18,6 +19,16 @@ nav {
   		vertical-align: middle;
   		line-height: #{navHeight};
 	}
+	a:hover {
+		color: white;
+		text-decoration: none;
+	}
+}
+
+.verticalLine {
+    border-left: thick solid #ff0000;
+    height: 600px;
+    display:inline-block;
 }
 
 /*nav a {
