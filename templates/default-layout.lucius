@@ -1,0 +1,27 @@
+h1 {
+	text-align: center;
+}
+
+@navHeight: 45px;
+nav {
+	background-color: black;
+	background-image: url(@{StaticR img_congruent_outline_png});
+	padding-left: 20px;
+	height: #{navHeight};
+
+	a {
+		color: white;
+		font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif; font-weight: 100; letter-spacing: 1px;
+		font-style: italic;
+		font-size: 25px;
+		
+  		vertical-align: middle;
+  		line-height: #{navHeight};
+	}
+}
+
+/*nav a {
+	color: white;
+	font-weight: bold;
+	text-transform: uppercase;
+}*/
