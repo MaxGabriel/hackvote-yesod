@@ -24,3 +24,12 @@ nav {
 		text-decoration: none;
 	}
 }
+
+footer {
+	border-top: 1px solid #eaeaea;
+	margin-top: 45px;
+	padding-top: 5px;
+	color: #999999;
+
+	margin-bottom: 30px;
+}

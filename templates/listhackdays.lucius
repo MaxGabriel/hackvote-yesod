@@ -1,9 +1,9 @@
 #titleField::-webkit-input-placeholder {
-	font-style:italic;
+	font-style: italic;
 }
 
 #titleField::-moz-placeholder {
-	font-style:italic;	
+	font-style: italic;	
 }
 
 #pastHackdaysContainer {

@@ -2,7 +2,7 @@ Default: &defaults
   host: "*4" # any IPv4 host
   port: 3000
   approot: "http://localhost:3000"
-  copyright: <em><a href="https://creativecommons.org/publicdomain/zero/1.0/">Licensed under Creative Commons 0</a></em>
+  copyright: <em>Heyzap Hackday App by Max Tagher — Released to <a href="https://creativecommons.org/publicdomain/zero/1.0/">the public domain</a></em>
   #analytics: UA-YOURCODE
 
 Development:
