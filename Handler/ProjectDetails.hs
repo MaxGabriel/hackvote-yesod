@@ -4,7 +4,7 @@ import Import
 import qualified Data.Text as T
 import qualified Data.Text.Read as TR
 
-import App.Voting
+import Handler.Voting
 
 postProjectDetailsR :: ProjectId -> Handler Html
 postProjectDetailsR projectId = do

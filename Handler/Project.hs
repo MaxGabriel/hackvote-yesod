@@ -3,7 +3,7 @@ module Handler.Project where
 import Import
 import Handler.HackDayDetails
 import Data.Time.Clock
-import App.Voting (getVotes)
+import Handler.Voting (getVotes)
 
 postProjectR :: HackDayId -> Handler Html
 postProjectR hackDayID = do

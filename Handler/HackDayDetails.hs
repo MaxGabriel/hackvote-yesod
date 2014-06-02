@@ -2,7 +2,7 @@ module Handler.HackDayDetails where
 
 import Import
 
-import App.Voting (getVotes)
+import Handler.Voting (getVotes)
 
 data ProjectForm = ProjectForm
     { name :: Text
