@@ -13,13 +13,12 @@
 
         <h2> Projects
         <hr>
-        <h4> #{remainingVotes} votes remaining
+        <h4 id="remainingVotes"> #{remainingVotes} votes remaining
 
         <ul>
             $forall Entity id project <- projects
                 <li>
                     #{projectTitle project} by #{projectCreators project} — #{projectVotes project} votes
                     $if remainingVotes > 0
-                        <form method=post action=@{ProjectDetailsR id} class="vote-form">
-                            <button class="btn btn-primary"> Vote!
+                        <button class="btn btn-primary vote-button" data-url=@{ProjectDetailsR id} > Vote!
 
