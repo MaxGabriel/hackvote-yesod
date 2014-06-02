@@ -19,6 +19,6 @@ Staging:
   <<: *defaults
 
 Production:
-  database: HackVote_production
+  database: hackvote_production
   poolsize: 100
   <<: *defaults
