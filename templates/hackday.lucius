@@ -1,3 +1,7 @@
+h1 {
+	margin-bottom: 20px;
+}
+
 .vote-form {
 	display: inline-block;
 	margin-left: 6px;
