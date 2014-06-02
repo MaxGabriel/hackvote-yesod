@@ -1,5 +1,8 @@
 $(".vote-button").click(function() {
 	var url = $(this).data('url');
+	var spanID = $(this).data('spanid');
+
+	// debugger;
 
 	$.ajax({
 	  type: "POST",
@@ -18,9 +21,13 @@ $(".vote-button").click(function() {
 	  		$(".vote-button").remove();
 	  	}
 
-	  	$("#remainingVotes").val(data["remainingVotes"] + "votes remaining");
-	  	
 	  	debugger;
+
+	  	$("#remainingVotes").text(data["remainingVotes"] + " votes remaining");
+
+	  	$("#" + spanID).text(data["remainingVotes"]);
+	  	
+	  	// debugger;
         
       },
 	  error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -22,7 +22,7 @@ postProjectDetailsR projectId = do
         then do
             setSession (remainingVotesKey $ projectHackday project) (T.pack $ show $ remainingVotes - 1)
             voteFor projectId
-            returnJson $ VoteResponse {remainingVotes = remainingVotes, message = Nothing }
+            returnJson $ VoteResponse {remainingVotes = remainingVotes - 1, message = Nothing }
         else do
             returnJson $ VoteResponse {remainingVotes = remainingVotes, message = Just "Out of votes!" }
             
