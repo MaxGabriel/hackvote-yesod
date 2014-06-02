@@ -1,17 +1,25 @@
 <h1> #{hackDayTitle hackDay}
 
-<h2> #{remainingVotes} votes remaining
+<div class="row">
 
-<ul>
-    $forall Entity id project <- projects
-        <li>
-            #{projectTitle project} by #{projectCreators project} — #{projectVotes project} votes
-            $if remainingVotes > 0
-                <form method=post action=@{ProjectDetailsR id}>
-                    <button class="btn btn-primary"> Vote!
+    <div class="span4">
+        <h2> Add New Project
 
-<h2> Add New Project
+        <form method=post action=@{ProjectR hackDayID} enctype=#{enctype}>
+            ^{widget}
+            <button class="btn btn-large btn-primary">Add Project!
 
-<form method=post action=@{ProjectR hackDayID} enctype=#{enctype}>
-    ^{widget}
-    <button class="btn btn-large btn-primary">Add Project!
+    <div class="span8">
+
+        <h2> Projects
+        <hr>
+        <h4> #{remainingVotes} votes remaining
+
+        <ul>
+            $forall Entity id project <- projects
+                <li>
+                    #{projectTitle project} by #{projectCreators project} — #{projectVotes project} votes
+                    $if remainingVotes > 0
+                        <form method=post action=@{ProjectDetailsR id} class="vote-form">
+                            <button class="btn btn-primary"> Vote!
+
