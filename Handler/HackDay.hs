@@ -43,13 +43,3 @@ postHackDayR = do
                             defaultLayout $(widgetFile "listhackdays")
 
 
---postUserR :: Handler Html
---postUserR = do
---    ((res, widget), enctype) <- runFormPost $ renderBootstrap (userForm Nothing)
---    --runDB $ insert $ User "Max" Nothing
---    case res of 
---        FormSuccess user -> do
---                        hashed <- passwordHash (HashDB.defaultStrength) (password user)
---                        _ <- runDB $ insert $ User (username user) (hashed) (email user)
---                        defaultLayout [whamlet|"Success!"|]
---        _                -> defaultLayout $(widgetFile "signup")

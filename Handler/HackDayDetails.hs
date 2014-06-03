@@ -2,7 +2,7 @@ module Handler.HackDayDetails where
 
 import Import
 
-import App.Voting (getVotes)
+import Handler.Voting (getVotes)
 
 data ProjectForm = ProjectForm
     { name :: Text
@@ -24,3 +24,5 @@ getHackDayDetailsR hackDayID = do
     defaultLayout $ do
         setTitle $ toHtml $ hackDayTitle hackDay
         $(widgetFile "hackday")
+
+toInt (PersistInt64 i) = i

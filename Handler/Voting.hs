@@ -1,4 +1,4 @@
-module App.Voting where
+module Handler.Voting where
 
 import Import
 import qualified Data.Text.Read as TR
@@ -6,7 +6,7 @@ import qualified Data.Text.Read as TR
 readInt :: Text -> Maybe Int
 readInt text = case TR.decimal text of
                 Right (int,_) -> Just int
-                Left _ -> Nothing -- Probably should return Nothing here, and default to 3
+                Left _ -> Nothing 
 
 -- Gets the remaining votes for the given HackDay
 -- If not present in the session, sets it to the default value.

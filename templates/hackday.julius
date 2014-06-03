@@ -1,0 +1,28 @@
+$(".vote-button").click(function() {
+	var url = $(this).data('url');
+	var spanID = $(this).data('spanid');
+
+	$.ajax({
+	  type: "POST",
+	  url: url,
+	  contentType: 'application/json',
+	  success: function (data) {
+	  	var remainingVotes = parseInt(data["remainingVotes"]);
+
+	  	if (remainingVotes == 0) {
+	  		$(".vote-button").remove();
+	  	}
+
+	  	$("#remainingVotes").text(data["remainingVotes"] + " votes remaining");
+
+	  	$("#" + spanID).text(data["remainingVotes"]);
+	  	
+	  	// For errors sent from server.
+	  	var message = data["message"];
+	  	if (message) {
+	  		alert(message);
+	  	}
+        
+      }
+	});
+});
