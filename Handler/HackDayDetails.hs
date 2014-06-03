@@ -25,5 +25,4 @@ getHackDayDetailsR hackDayID = do
         setTitle $ toHtml $ hackDayTitle hackDay
         $(widgetFile "hackday")
 
---toInt :: PersistInt64 -> Int
 toInt (PersistInt64 i) = i

@@ -25,10 +25,3 @@ postProjectDetailsR projectId = do
             returnJson $ VoteResponse {remainingVotes = remainingVotes - 1, message = Nothing }
         else do
             returnJson $ VoteResponse {remainingVotes = remainingVotes, message = Just "Out of votes!" }
-            
-    --let maybeVotes = lookupSession $ remainingVotesKey (projectHackday project)
-    --in case maybeVotes of
-    --    Just voteString -> do
-    --                     let votes = read votes :: Int
-    --    Nothing -> 
-    --error "Not yet implemented: putProjectDetailsR"

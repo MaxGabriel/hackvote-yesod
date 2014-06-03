@@ -2,8 +2,6 @@ $(".vote-button").click(function() {
 	var url = $(this).data('url');
 	var spanID = $(this).data('spanid');
 
-	// debugger;
-
 	$.ajax({
 	  type: "POST",
 	  url: url,
@@ -11,33 +9,20 @@ $(".vote-button").click(function() {
 	  success: function (data) {
 	  	var remainingVotes = parseInt(data["remainingVotes"]);
 
-	  	// For errors sent from server.
-	  	var message = data["message"];
-	  	if (message) {
-	  		alert(message);
-	  	}
-
 	  	if (remainingVotes == 0) {
 	  		$(".vote-button").remove();
 	  	}
-
-	  	debugger;
 
 	  	$("#remainingVotes").text(data["remainingVotes"] + " votes remaining");
 
 	  	$("#" + spanID).text(data["remainingVotes"]);
 	  	
-	  	// debugger;
+	  	// For errors sent from server.
+	  	var message = data["message"];
+	  	if (message) {
+	  		alert(message);
+	  	}
         
-      },
-	  error: function(XMLHttpRequest, textStatus, errorThrown) {
-	  		debugger;
-     		alert("some error");
-  		}
+      }
 	});
-
-    // debugger;
-    // pull out URL from this
-    // post to URL
-    // use response
 });
