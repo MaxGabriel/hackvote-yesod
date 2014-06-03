@@ -12,7 +12,7 @@ postProjectR hackDayID = do
     case res of
         FormSuccess form -> do
                         currentTime <- liftIO $ getCurrentTime
-                        runDB $ insert $ Project hackDayID (name form) (creators form) 0 currentTime
+                        _ <- runDB $ insert $ Project hackDayID (name form) (creators form) 0 currentTime
                         redirect $ HackDayDetailsR hackDayID
         _                -> do
                         remainingVotes <- getVotes hackDayID

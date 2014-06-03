@@ -2,7 +2,6 @@ module Handler.ProjectDetails where
 
 import Import
 import qualified Data.Text as T
-import qualified Data.Text.Read as TR
 import Data.Aeson.TH
 
 import Handler.Voting
