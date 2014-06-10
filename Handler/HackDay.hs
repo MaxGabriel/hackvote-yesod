@@ -35,7 +35,9 @@ postHackDayR = do
     case res of
         FormSuccess hackForm -> do
                             currentTime <- liftIO $ getCurrentTime
-                            hackId <- runDB $ insert $ HackDay (formTitle hackForm) currentTime
+                            hackId <- runDB $ insert $ HackDay { hackDayTitle = formTitle hackForm
+                                                               , hackDayCreated = currentTime
+                                                               , hackDayVotingClosed = False }
                             redirect (HackDayDetailsR hackId)
 
         _                    -> do
