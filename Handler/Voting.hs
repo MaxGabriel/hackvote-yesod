@@ -2,6 +2,23 @@ module Handler.Voting where
 
 import Import
 import qualified Data.Text.Read as TR
+import Data.Maybe (isJust)
+import Data.Text (pack)
+import Control.Monad (liftM)
+
+-- Hackday Ownership goes to the creator, so that they can close voting.
+
+setOwner :: HackDayId -> Handler ()
+setOwner hackDayId = do
+    setSession (ownerKey hackDayId) "" -- unused value; I just use presence of the value to denote ownership
+
+isOwner :: HackDayId -> Handler Bool
+isOwner hackDayId = liftM isJust (lookupSession $ ownerKey hackDayId)
+
+ownerKey :: HackDayId -> Text
+ownerKey hackDayId = pack $ "hackDayOwner" ++ show hackDayId
+
+-- Individuals can vote on 3 projects per hackday; remaining votes are stored in a session
 
 readInt :: Text -> Maybe Int
 readInt text = case TR.decimal text of
@@ -20,4 +37,4 @@ getVotes hackDayId = do
             return defaultVotes
 
 voteFor :: ProjectId -> Handler ()
-voteFor projectId = runDB $ updateWhere [ProjectId ==. projectId] [ProjectVotes +=. 1]
+voteFor projectId = runDB $ update projectId [ProjectVotes +=. 1]

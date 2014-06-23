@@ -1,6 +1,5 @@
 $(".vote-button").click(function() {
 	var url = $(this).data('url');
-	var spanID = $(this).data('spanid');
 
 	$.ajax({
 	  type: "POST",
@@ -14,8 +13,6 @@ $(".vote-button").click(function() {
 	  	}
 
 	  	$("#remainingVotes").text(data["remainingVotes"] + " votes remaining");
-
-	  	$("#" + spanID).text(data["remainingVotes"]);
 	  	
 	  	// For errors sent from server.
 	  	var message = data["message"];

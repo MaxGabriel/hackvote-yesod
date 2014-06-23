@@ -2,6 +2,7 @@ module Handler.HackDay where
 
 import Import
 import Data.Time.Clock
+import Handler.Voting (setOwner)
 
 data HackDayForm = HackDayForm
     { formTitle :: Text
@@ -35,7 +36,10 @@ postHackDayR = do
     case res of
         FormSuccess hackForm -> do
                             currentTime <- liftIO $ getCurrentTime
-                            hackId <- runDB $ insert $ HackDay (formTitle hackForm) currentTime
+                            hackId <- runDB $ insert $ HackDay { hackDayTitle = formTitle hackForm
+                                                               , hackDayCreated = currentTime
+                                                               , hackDayVotingClosed = False }
+                            setOwner hackId
                             redirect (HackDayDetailsR hackId)
 
         _                    -> do

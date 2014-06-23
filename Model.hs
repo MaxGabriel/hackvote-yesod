@@ -22,3 +22,6 @@ defaultVotesText = pack $ show defaultVotes
 
 remainingVotesKey :: HackDayId -> Text
 remainingVotesKey hackDayId = pack $ "remainingVotes" ++ show hackDayId
+
+hackDayVotingOpen :: HackDay -> Bool
+hackDayVotingOpen hackday = not $ hackDayVotingClosed hackday

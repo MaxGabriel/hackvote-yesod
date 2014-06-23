@@ -3,7 +3,7 @@ module Handler.Project where
 import Import
 import Handler.HackDayDetails
 import Data.Time.Clock
-import Handler.Voting (getVotes)
+import qualified Handler.Voting as Voting
 
 postProjectR :: HackDayId -> Handler Html
 postProjectR hackDayID = do
@@ -15,7 +15,8 @@ postProjectR hackDayID = do
                         _ <- runDB $ insert $ Project hackDayID (name form) (creators form) 0 currentTime
                         redirect $ HackDayDetailsR hackDayID
         _                -> do
-                        remainingVotes <- getVotes hackDayID
+                        remainingVotes <- Voting.getVotes hackDayID
                         projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) [Asc ProjectId]
+                        isOwner <- Voting.isOwner hackDayID
                         defaultLayout $ $(widgetFile "hackday")
     

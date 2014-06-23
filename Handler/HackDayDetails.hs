@@ -2,7 +2,7 @@ module Handler.HackDayDetails where
 
 import Import
 
-import Handler.Voting (getVotes)
+import qualified Handler.Voting as Voting
 
 data ProjectForm = ProjectForm
     { name :: Text
@@ -17,12 +17,22 @@ projectForm mForm = ProjectForm
 
 getHackDayDetailsR :: HackDayId -> Handler Html
 getHackDayDetailsR hackDayID = do
-    remainingVotes <- getVotes hackDayID
+    remainingVotes <- Voting.getVotes hackDayID
     hackDay <- runDB $ get404 hackDayID
-    projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) [Asc ProjectId]
+    isOwner <- Voting.isOwner hackDayID
+    let votingClosed = hackDayVotingClosed hackDay
+        sortCriteria = if votingClosed then [Desc ProjectVotes] else [Asc ProjectId]
+    projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) sortCriteria
     (widget, enctype) <- generateFormPost $ renderBootstrap (projectForm Nothing)
     defaultLayout $ do
         setTitle $ toHtml $ hackDayTitle hackDay
         $(widgetFile "hackday")
 
-toInt (PersistInt64 i) = i
+postCloseHackDayR :: HackDayId -> Handler Html
+postCloseHackDayR hackDayID = do
+    isOwner <- Voting.isOwner hackDayID
+    if isOwner
+        then do
+            runDB $ update hackDayID [HackDayVotingClosed =. True]
+            redirect (HackDayDetailsR hackDayID)
+        else redirect (HackDayDetailsR hackDayID)
