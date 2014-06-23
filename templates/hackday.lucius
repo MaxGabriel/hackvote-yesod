@@ -6,3 +6,9 @@ h1 {
 	display: inline-block;
 	margin-left: 6px;
 }
+
+.vote-list {
+	li {
+		margin-bottom: 10px;
+	}
+}

@@ -23,7 +23,7 @@
         $else
             <h4> Voting closed!
 
-        <ul>
+        <ul class="vote-list">
             $forall Entity id project <- projects
                 <li>
                     $if (remainingVotes > 0) && hackDayVotingOpen hackDay
