@@ -11,8 +11,8 @@
                 <button class="btn btn-large btn-primary">Add Project!
 
     
-        <form method=post action=@{CloseHackDayR hackDayID}>
-            <button class="btn btn-primary">Close Voting
+        <form id="closeVotingForm" method=post action=@{CloseHackDayR hackDayID}>
+            <button class="btn btn-warning">Close Voting
 
     <div class="span8">
 

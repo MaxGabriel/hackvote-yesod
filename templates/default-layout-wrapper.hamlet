@@ -24,7 +24,7 @@ $newline never
         <script>
           document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
     <body>
-        <nav>
+        <nav class="navbar-static-top">
             <span>
                 <a href=@{HackDayR}>Heyzap Hackday
         <div class="container">

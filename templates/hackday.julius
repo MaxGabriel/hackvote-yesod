@@ -23,3 +23,7 @@ $(".vote-button").click(function() {
       }
 	});
 });
+
+$("#closeVotingForm").submit(function() {
+	return confirm("Close voting on this hackday?")
+});
