@@ -22,6 +22,22 @@ hackDayForm :: Maybe HackDayForm -> AForm Handler HackDayForm
 hackDayForm mForm = HackDayForm
         <$> areq textField titleSettings (formTitle <$> mForm)
 
+currentHackday :: [Entity HackDay] -> Maybe (Entity HackDay)
+currentHackday hackdays = headMaybe hackdays >>= openHackday
+
+openHackday :: Entity HackDay -> Maybe (Entity HackDay)
+openHackday hackday@(Entity id day) = if hackDayVotingOpen day
+                                        then Just hackday
+                                        else Nothing
+
+headMaybe :: [a] -> Maybe a
+headMaybe [] = Nothing
+headMaybe (x:_) = Just x
+
+tailEmpty :: [a] -> [a]
+tailEmpty [] = []
+tailEmpty (_:xs) = xs
+
 getHackDayR :: Handler Html
 getHackDayR = do
     (widget, enctype) <- generateFormPost $ renderBootstrap (hackDayForm Nothing)

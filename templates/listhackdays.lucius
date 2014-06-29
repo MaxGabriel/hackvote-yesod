@@ -6,12 +6,20 @@
 	font-style: italic;	
 }
 
-#pastHackdaysContainer {
+.hackDayContainer {
 	text-align: center;
-	
-	ul {
-		list-style-type: none;
-		padding:0; 
-		margin:0;	
+
+	h2 {
+		margin-bottom: 10px;
 	}
+}
+
+.currentHackday {
+	color: #00CC3B;
+}
+
+ul.hackDayList {
+	list-style-type: none;
+	padding:0; 
+	margin:0;
 }
