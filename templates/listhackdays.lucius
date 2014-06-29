@@ -1,3 +1,7 @@
+.hero-unit {
+	padding: 2rem;
+}
+
 #titleField::-webkit-input-placeholder {
 	font-style: italic;
 }
@@ -16,6 +20,12 @@
 
 .currentHackday {
 	color: #00CC3B;
+	&:hover {
+		color: #00CC3B;
+	}
+	&:active {
+		color: #1D8F3E;
+	}
 }
 
 ul.hackDayList {

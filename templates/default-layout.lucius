@@ -85,19 +85,19 @@ h1 {
 }
 
 
-@navHeight: 2rem;
-nav {
+@navHeight: 2.2rem;
+.hv-nav-bar {
   background-color: black;
   background-image: url(@{StaticR img_congruent_outline_png});
   padding-left: 20px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
   height: #{navHeight};
 
   a {
     color: white;
     font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif; font-weight: 100; letter-spacing: 1px;
     font-style: italic;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     
     vertical-align: middle;
     line-height: #{navHeight};
