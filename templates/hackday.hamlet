@@ -10,13 +10,13 @@
                 ^{widget}
                 <button class="btn btn-large btn-primary">Add Project!
 
-    
-        <form id="closeVotingForm" method=post action=@{CloseHackDayR hackDayID}>
-            <button class="btn btn-warning">Close Voting
-
     <div class="span8">
+        $if isOwner && hackDayVotingOpen hackDay
+            <form id="closeVotingForm" method=post action=@{CloseHackDayR hackDayID}>
+                <button class="btn btn-warning">Close Voting
 
         <h2> Projects
+
         <hr>
         $if hackDayVotingOpen hackDay
             <h4 id="remainingVotes"> #{remainingVotes} votes remaining
