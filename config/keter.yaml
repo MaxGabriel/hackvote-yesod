@@ -2,6 +2,8 @@ exec: ../dist/build/HackVote/HackVote
 args:
     - production
 host: "yesodonrails.com"
+extra-hosts:
+    - "www.yesodonrails.com"
 root: ../static # don't think I need this really
 
 # Use the following to automatically copy your bundle upon creation via `yesod
