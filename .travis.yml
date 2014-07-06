@@ -10,4 +10,4 @@ install:
 
 script:
     - echo Done
-    - yesod test
+    - cabal test
