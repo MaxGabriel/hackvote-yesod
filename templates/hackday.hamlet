@@ -4,7 +4,7 @@
 
     $if isOwner && hackDayVotingOpen hackDay
         <div class="span4">
-            <h2> Add New Project
+            <h2>Add New Project
 
             <form method=post action=@{ProjectR hackDayID} enctype=#{enctype}>
                 ^{widget}

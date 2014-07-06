@@ -1,14 +1,14 @@
 HackDay
     title Text
-    created UTCTime default=CURRENT_TIMESTAMP
-    votingClosed Bool default=FALSE
+    created UTCTime default=now()
+    votingClosed Bool default=false
     deriving Show
 Project
 	hackday HackDayId
 	title Text
 	creators Text
 	votes Int default=0
-	created UTCTime default=CURRENT_TIMESTAMP
+	created UTCTime default=now()
 	deriving Show
 
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)

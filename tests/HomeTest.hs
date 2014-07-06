@@ -5,34 +5,51 @@ module HomeTest
 
 import TestImport
 import qualified Data.List as L
+import Data.Time.Clock
+import Control.Monad.IO.Class (liftIO)
+import Database.Persist.Sql (rawExecute)
 
 homeSpecs :: Spec
 homeSpecs =
     ydescribe "These are some example tests" $ do
 
         yit "loads the index and checks it looks right" $ do
-            get HomeR
+            _ <- runDB $ rawExecute "TRUNCATE TABLE hack_day, project;" []
+            get HackDayR
             statusIs 200
-            htmlAllContain "h1" "Hello"
+            htmlAnyContain "h2" "New Hackday"
 
-            request $ do
-                setMethod "POST"
-                setUrl HomeR
-                addNonce
-                fileByLabel "Choose a file" "tests/main.hs" "text/plain" -- talk about self-reference
-                byLabel "What's on the file?" "Some Content"
+        yit "shows the current hackday" $ do
+            _ <- runDB $ rawExecute "TRUNCATE TABLE hack_day, project;" []
+            currentTime <- liftIO $ getCurrentTime
+            hackId <- runDB $ insert $ HackDay { hackDayTitle = "testTitle"
+                                               , hackDayCreated = currentTime
+                                               , hackDayVotingClosed = False }
+            get HackDayR
+            htmlAllContain ".currentHackday" "testTitle"
 
-            statusIs 200
-            printBody
-            htmlCount ".message" 1
-            htmlAllContain ".message" "Some Content"
-            htmlAllContain ".message" "text/plain"
+        yit "doesn't show the current hackday if closed" $ do
+            _ <- runDB $ rawExecute "TRUNCATE TABLE hack_day, project;" []
+            currentTime <- liftIO $ getCurrentTime
+            hackId <- runDB $ insert $ HackDay { hackDayTitle = "testTitle"
+                                               , hackDayCreated = currentTime
+                                               , hackDayVotingClosed = True }
+            get HackDayR
+            htmlNoneContain ".currentHackday" "testTitle"
 
-        -- This is a simple example of using a database access in a test.  The
-        -- test will succeed for a fresh scaffolded site with an empty database,
-        -- but will fail on an existing database with a non-empty user table.
-        yit "leaves the user table empty" $ do
-            get HomeR
-            statusIs 200
-            users <- runDB $ selectList ([] :: [Filter User]) []
-            assertEqual "user table empty" 0 $ L.length users
+        yit "shows the past hackdays" $ do
+            _ <- runDB $ rawExecute "TRUNCATE TABLE hack_day, project;" []
+            currentTime <- liftIO $ getCurrentTime
+            hackId <- runDB $ insert $ HackDay { hackDayTitle = "test1"
+                                               , hackDayCreated = currentTime
+                                               , hackDayVotingClosed = True }
+
+            hackId <- runDB $ insert $ HackDay { hackDayTitle = "test2"
+                                               , hackDayCreated = currentTime
+                                               , hackDayVotingClosed = True }
+
+            get HackDayR
+            htmlAnyContain "a" "test1"
+            htmlAnyContain "a" "test1"
+
+
