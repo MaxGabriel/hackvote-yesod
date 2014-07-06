@@ -5,6 +5,9 @@ install:
     - cabal install alex
     - cabal install --enable-tests --max-backjumps=-1 --reorder-goals
 
+before_script:
+  - psql -c 'CREATE DATABASE hackvote_test;' -U postgres
+
 script:
     - echo Done
     - yesod test
