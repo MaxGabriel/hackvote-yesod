@@ -1,0 +1,8 @@
+language: haskell
+
+install:
+    - cabal update
+    - cabal install --enable-tests . yesod-platform yesod-bin --max-backjumps=-1 --reorder-goals
+script:
+    - echo Done
+    - yesod test
