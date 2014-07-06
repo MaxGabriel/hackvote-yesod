@@ -38,10 +38,18 @@ tailEmpty :: [a] -> [a]
 tailEmpty [] = []
 tailEmpty (_:xs) = xs
 
+currentAndPastHackdays :: [Entity HackDay] -> (Maybe (Entity HackDay), [Entity HackDay])
+currentAndPastHackdays xs = 
+    case currentHackday xs of
+        Nothing -> (Nothing, xs)
+        Just x -> (Just x, tailEmpty xs)
+
+
 getHackDayR :: Handler Html
 getHackDayR = do
     (widget, enctype) <- generateFormPost $ renderBootstrap (hackDayForm Nothing)
     allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
+    let (currentHackday, pastHackdays) = currentAndPastHackdays allHackdays
     defaultLayout $ do
         setTitle "Hackday!"
         $(widgetFile "listhackdays")
@@ -60,6 +68,7 @@ postHackDayR = do
 
         _                    -> do
                             allHackdays <- runDB $ selectList [] [Desc HackDayCreated]
+                            let (currentHackday, pastHackdays) = currentAndPastHackdays allHackdays
                             defaultLayout $(widgetFile "listhackdays")
 
 

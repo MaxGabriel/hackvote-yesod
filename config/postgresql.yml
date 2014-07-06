@@ -10,11 +10,11 @@ Development:
   <<: *defaults
 
 Testing:
-  database: HackVote_test
+  database: hackvote_test
   <<: *defaults
 
 Staging:
-  database: HackVote_staging
+  database: hackvote_staging
   poolsize: 100
   <<: *defaults
 

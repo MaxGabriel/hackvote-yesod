@@ -4,7 +4,7 @@
         ^{widget}
         <button class="btn btn-large btn-primary">Create new Hackday!
 
-$maybe Entity id currentHackday <- currentHackday allHackdays
+$maybe Entity id currentHackday <- currentHackday
     <div class="hackDayContainer">
         <h2>Current Hackday
             <h4><a class="currentHackday" href=@{HackDayDetailsR id}>#{hackDayTitle currentHackday}</a>
@@ -12,7 +12,7 @@ $maybe Entity id currentHackday <- currentHackday allHackdays
 <div class="hackDayContainer">
     <h2>Past Hackdays
     <ul class="hackDayList">
-        $forall Entity id hackday <- tailEmpty allHackdays
+        $forall Entity id hackday <- pastHackdays
             <li>
                 <h4><a href=@{HackDayDetailsR id}>#{hackDayTitle hackday}</a>
             
