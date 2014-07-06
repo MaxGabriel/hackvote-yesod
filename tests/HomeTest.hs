@@ -51,5 +51,6 @@ homeSpecs =
             get HackDayR
             htmlAnyContain "a" "test1"
             htmlAnyContain "a" "test1"
+            htmlAnyContain "a" "blah"
 
 
