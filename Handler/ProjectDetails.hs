@@ -1,3 +1,5 @@
+{-# LANGUAGE MultiWayIf #-}
+
 module Handler.ProjectDetails where
 
 import Import
