@@ -12,6 +12,7 @@ install:
     - cabal --version
     - echo $PATH
     - cabal install cabal-install
+    - source .bashrc
     - cabal --version
     - cabal update
     - cabal install alex
