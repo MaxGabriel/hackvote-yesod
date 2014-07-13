@@ -8,7 +8,9 @@ before_install:
   - psql -c 'CREATE DATABASE hackvote_test;' -U postgres
 
 install:
+    - PATH=~/.cabal/bin:$PATH
     - cabal --version
+    - echo $PATH
     - cabal install cabal-install
     - cabal --version
     - cabal update
