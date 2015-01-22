@@ -1,4 +1,6 @@
 language: haskell
+ghc:
+  - 7.8
 
 # So in the version of Cabal that Travis CI runs, tests are automatically run when you install with testing enabled (see https://github.com/haskell/cabal/issues/1647)
 # Additionally, `cabal test` would fail in the script section, reporting that the version of GHC and cabal had both changed.
