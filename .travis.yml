@@ -18,3 +18,7 @@ install:
 
 script:
     - echo Done
+
+cache:
+  directories:
+  - .cabal-sandbox
