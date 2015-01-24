@@ -9,6 +9,8 @@ ghc:
 
 before_install:
   - psql -c 'CREATE DATABASE hackvote_test;' -U postgres
+  - cabal list --installed
+  - cat ~/.cabal/config
 
 install:
     - cabal update
