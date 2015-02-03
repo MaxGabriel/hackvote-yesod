@@ -9,8 +9,7 @@ import Control.Monad (liftM)
 -- Hackday Ownership goes to the creator, so that they can close voting.
 
 setOwner :: HackDayId -> Handler ()
-setOwner hackDayId = do
-    setSession (ownerKey hackDayId) "" -- unused value; I just use presence of the value to denote ownership
+setOwner hackDayId = setSession (ownerKey hackDayId) "" -- unused value; I just use presence of the value to denote ownership
 
 isOwner :: HackDayId -> Handler Bool
 isOwner hackDayId = liftM isJust (lookupSession $ ownerKey hackDayId)

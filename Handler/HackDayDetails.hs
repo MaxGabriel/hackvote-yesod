@@ -22,7 +22,7 @@ getHackDayDetailsR hackDayID = do
     isOwner <- Voting.isOwner hackDayID
     let votingClosed = hackDayVotingClosed hackDay
         sortCriteria = if votingClosed then [Desc ProjectVotes] else [Asc ProjectId]
-    projects <- runDB $ selectList ([ProjectHackday ==. hackDayID]) sortCriteria
+    projects <- runDB $ selectList [ProjectHackday ==. hackDayID] sortCriteria
     (widget, enctype) <- generateFormPost $ renderBootstrap (projectForm Nothing)
     defaultLayout $ do
         setTitle $ toHtml $ hackDayTitle hackDay

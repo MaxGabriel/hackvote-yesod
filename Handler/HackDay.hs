@@ -59,8 +59,8 @@ postHackDayR = do
     ((res, widget), enctype) <- runFormPost $ renderBootstrap (hackDayForm Nothing)
     case res of
         FormSuccess hackForm -> do
-                            currentTime <- liftIO $ getCurrentTime
-                            hackId <- runDB $ insert $ HackDay { hackDayTitle = formTitle hackForm
+                            currentTime <- liftIO getCurrentTime
+                            hackId <- runDB $ insert HackDay { hackDayTitle = formTitle hackForm
                                                                , hackDayCreated = currentTime
                                                                , hackDayVotingClosed = False }
                             setOwner hackId
