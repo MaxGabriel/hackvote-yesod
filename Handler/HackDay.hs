@@ -1,7 +1,6 @@
 module Handler.HackDay where
 
 import Import
-import Data.Time.Clock
 import Handler.Voting (setOwner)
 
 data HackDayForm = HackDayForm
@@ -26,7 +25,7 @@ currentHackday :: [Entity HackDay] -> Maybe (Entity HackDay)
 currentHackday hackdays = headMaybe hackdays >>= openHackday
 
 openHackday :: Entity HackDay -> Maybe (Entity HackDay)
-openHackday hackday@(Entity id day) = if hackDayVotingOpen day
+openHackday hackday@(Entity _id day) = if hackDayVotingOpen day
                                         then Just hackday
                                         else Nothing
 

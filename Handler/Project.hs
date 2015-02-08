@@ -2,7 +2,6 @@ module Handler.Project where
 
 import Import
 import Handler.HackDayDetails
-import Data.Time.Clock
 import qualified Handler.Voting as Voting
 
 postProjectR :: HackDayId -> Handler Html

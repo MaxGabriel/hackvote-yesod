@@ -2,9 +2,6 @@ module Handler.Voting where
 
 import Import
 import qualified Data.Text.Read as TR
-import Data.Maybe (isJust)
--- import Data.Text (pack)
-import Control.Monad (liftM)
 
 -- Hackday Ownership goes to the creator, so that they can close voting.
 
