@@ -123,7 +123,7 @@ test-suite test
 
     build-depends: base
                  , HackVote
-                 , yesod-test >= 1.4.2 && < 1.5
+                 , yesod-test >= 1.4.3 && < 1.5
                  , yesod-core
                  , yesod
                  , persistent
