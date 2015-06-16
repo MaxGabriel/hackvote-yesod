@@ -1,7 +1,7 @@
 module Handler.Spoiler where
 
 import Import
-
+import qualified Data.Text as T
 -- token=gNXpxF6JBAebdhGEPpGX1bs0
 -- team_id=T0001
 -- team_domain=example
@@ -24,6 +24,10 @@ data SpoilerRequest = SpoilerRequest
     }
   deriving Show
 
+data SlackMessage = SlackMessage
+    { 
+    }
+
 requirePostParam :: Text -> Handler Text
 requirePostParam key = do
     mParam <- lookupPostParam key
@@ -32,9 +36,10 @@ requirePostParam key = do
         Nothing -> invalidArgs ["Missing POST param: " ++ key]
 
  
+formatSpoiler :: Text -> Text
+formatSpoiler = T.strip . T.dropWhile (== ':') 
 
-
-postSpoilerR :: Handler ()
+postSpoilerR :: Handler Text
 postSpoilerR = do
     $(logDebug) "Got POST to /spoiler"
     body <- runRequestBody
@@ -52,13 +57,18 @@ postSpoilerR = do
     userId <- requirePostParam "user_id"
     userName <- requirePostParam "user_name"
     text <- requirePostParam "text"
-        
 
     let spoilerRequest = SpoilerRequest {..}
-
     $(logDebug) ("SpoilerRequest is:" ++ tshow spoilerRequest)    
+
+    let response = case T.breakOn ":" text of
+                        (_, "") -> "Please format your message as \"Spoiler description: Actual spoiler\""
+                        (description, spoiler) -> formatSpoiler spoiler
+
+    return response
+    
     -- ((res, widget), enctype) <- runFormPost $ renderBootstrap (projectForm Nothing)<- runFormPostNoToken
 
-    return ()
+    -- return ""
 
 -- lookupParam "key" -- specify if it needs to be present or not?
