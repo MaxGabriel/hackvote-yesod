@@ -10,3 +10,5 @@
 /hackdays/#HackDayId/close CloseHackDayR POST
 /hackdays/#HackDayId/projects ProjectR POST
 /projects/#ProjectId ProjectDetailsR POST
+
+/spoiler SpoilerR POST

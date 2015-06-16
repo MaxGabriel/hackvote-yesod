@@ -28,6 +28,7 @@ library
                      Handler.Project
                      Handler.ProjectDetails
                      Handler.Voting
+                     Handler.Spoiler
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
