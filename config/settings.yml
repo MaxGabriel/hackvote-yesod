@@ -27,3 +27,6 @@ database:
 
 copyright: <em>Heyzap Hackday App by Max Tagher — Released to <a href="https://creativecommons.org/publicdomain/zero/1.0/">the public domain</a></em>
 #analytics: UA-YOURCODE
+
+slackUrl: "_env:SLACK_URL:"
+slackToken: "_env:SLACK_TOKEN:"

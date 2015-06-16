@@ -2,30 +2,14 @@ module Handler.Spoiler where
 
 import Import
 import qualified Data.Text as T
--- token=gNXpxF6JBAebdhGEPpGX1bs0
--- team_id=T0001
--- team_domain=example
--- channel_id=C2147483705
--- channel_name=test
--- user_id=U2147483697
--- user_name=Steve
--- command=/weather
--- text=94070
+import qualified Network.HTTP.Conduit as HC
+import Data.Aeson.TH
+import qualified Data.Aeson as A
+import Network.HTTP.Types.Status
 
-data SpoilerRequest = SpoilerRequest
-    { token :: Text
-    , teamId :: Text
-    , teamDomain :: Text
-    , channelId :: Text
-    , channelName :: Text
-    , userId :: Text
-    , userName :: Text
-    , text :: Text
-    }
-  deriving Show
-
-data SlackMessage = SlackMessage
-    { 
+data Spoiler = Spoiler
+    { spoilerDescription :: Text
+    , spoilerText :: Text
     }
 
 requirePostParam :: Text -> Handler Text
@@ -39,36 +23,56 @@ requirePostParam key = do
 formatSpoiler :: Text -> Text
 formatSpoiler = T.strip . T.dropWhile (== ':') 
 
+postSpoilerToSlack :: Spoiler -> Text -> Handler Status
+postSpoilerToSlack spoiler channel = do
+    let slackMessage = A.object [ "text" A..= ("Spoiler for: " ++ spoilerDescription spoiler)
+                                , "channel" A..= channel
+                                , ("unfurl_links","false")
+                                , ("unfurl_media","false")
+                                , "attachments" A..= [ A.object [("text" :: Text) A..= ("\n\n\n\n\n" ++ (spoilerText spoiler)) ] ]
+                                ]
+    slackUrl <- appSlackUrl <$> appSettings <$> getYesod
+
+    initReq <- HC.parseUrl (T.unpack slackUrl)
+    let req2 = initReq { HC.requestBody = RequestBodyLBS $ A.encode slackMessage, HC.checkStatus = \_ _ _ -> Nothing }
+    app <- getYesod
+
+    response <- HC.httpLbs req2 (appHttpManager app)
+    $(logDebug) ("Slack Response = " ++ tshow response)
+    return $ responseStatus response
+
+checkSlackToken :: Text -> Handler ()
+checkSlackToken token = do
+    settingsToken <- appSlackToken <$> appSettings <$> getYesod
+    if settingsToken == token
+        then return ()
+        else permissionDenied ("Invalid Slack token: " ++ token)
+
+
 postSpoilerR :: Handler Text
 postSpoilerR = do
     $(logDebug) "Got POST to /spoiler"
-    body <- runRequestBody
-    $(logDebug) ("Request body:" ++ tshow (fst body))
-
-    mCommand <- lookupPostParam "command"
-
-    $(logDebug) ("Maybe Command:" ++ tshow mCommand)
 
     token <- requirePostParam "token"
-    teamId <- requirePostParam "team_id"
-    teamDomain <- requirePostParam "team_domain"
-    channelId <- requirePostParam "channel_id"
-    channelName <- requirePostParam "channel_name"
-    userId <- requirePostParam "user_id"
-    userName <- requirePostParam "user_name"
-    text <- requirePostParam "text"
+    checkSlackToken token
 
-    let spoilerRequest = SpoilerRequest {..}
-    $(logDebug) ("SpoilerRequest is:" ++ tshow spoilerRequest)    
+    spoilerTeamId <- requirePostParam "team_id"
+    spoilerTeamDomain <- requirePostParam "team_domain"
+    spoilerChannelId <- requirePostParam "channel_id"
+    spoilerChannelName <- requirePostParam "channel_name"
+    spoilerUserId <- requirePostParam "user_id"
+    spoilerUserName <- requirePostParam "user_name"
+    rawText <- requirePostParam "text"
 
-    let response = case T.breakOn ":" text of
-                        (_, "") -> "Please format your message as \"Spoiler description: Actual spoiler\""
-                        (description, spoiler) -> formatSpoiler spoiler
+    let (description, formattedSpoilerText) = case T.breakOn ":" rawText of
+                        (spoiler, "") -> ("", spoiler)
+                        (description, spoiler) -> (description, formatSpoiler spoiler)
 
-    return response
-    
-    -- ((res, widget), enctype) <- runFormPost $ renderBootstrap (projectForm Nothing)<- runFormPostNoToken
 
-    -- return ""
+    let spoiler = Spoiler description formattedSpoilerText
 
--- lookupParam "key" -- specify if it needs to be present or not?
+    status <- postSpoilerToSlack spoiler spoilerChannelName
+
+    case statusIsSuccessful status of
+        True -> return ""
+        False -> return "Error posting to Slack. Bug Max about this?"

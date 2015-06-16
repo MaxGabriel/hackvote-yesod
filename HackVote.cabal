@@ -89,6 +89,7 @@ library
                  , containers
                  , vector
                  , time
+                 , http-types
 
 executable         HackVote
     if flag(library-only)
