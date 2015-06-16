@@ -12,11 +12,27 @@ import Import
 -- command=/weather
 -- text=94070
 
--- data SpoilerRequest = SpoilerRequest
---     { token :: Text
---     , team_id :: 
---     }
---   deriving Show
+data SpoilerRequest = SpoilerRequest
+    { token :: Text
+    , teamId :: Text
+    , teamDomain :: Text
+    , channelId :: Text
+    , channelName :: Text
+    , userId :: Text
+    , userName :: Text
+    , text :: Text
+    }
+  deriving Show
+
+requirePostParam :: Text -> Handler Text
+requirePostParam key = do
+    mParam <- lookupPostParam key
+    case mParam of
+        Just value -> return value
+        Nothing -> invalidArgs ["Missing POST param: " ++ key]
+
+ 
+
 
 postSpoilerR :: Handler ()
 postSpoilerR = do
@@ -28,6 +44,21 @@ postSpoilerR = do
 
     $(logDebug) ("Maybe Command:" ++ tshow mCommand)
 
+    token <- requirePostParam "token"
+    teamId <- requirePostParam "team_id"
+    teamDomain <- requirePostParam "team_domain"
+    channelId <- requirePostParam "channel_id"
+    channelName <- requirePostParam "channel_name"
+    userId <- requirePostParam "user_id"
+    userName <- requirePostParam "user_name"
+    text <- requirePostParam "text"
+        
+
+    let spoilerRequest = SpoilerRequest {..}
+
+    $(logDebug) ("SpoilerRequest is:" ++ tshow spoilerRequest)    
     -- ((res, widget), enctype) <- runFormPost $ renderBootstrap (projectForm Nothing)<- runFormPostNoToken
 
     return ()
+
+-- lookupParam "key" -- specify if it needs to be present or not?
