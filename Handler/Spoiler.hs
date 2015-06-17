@@ -71,7 +71,7 @@ postSpoilerR = do
 
     let spoiler = Spoiler description formattedSpoilerText
 
-    status <- postSpoilerToSlack spoiler spoilerChannelName
+    status <- postSpoilerToSlack spoiler ("#" ++ spoilerChannelName)
 
     case statusIsSuccessful status of
         True -> return ""
