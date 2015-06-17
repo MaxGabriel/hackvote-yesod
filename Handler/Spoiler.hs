@@ -23,10 +23,12 @@ requirePostParam key = do
 formatSpoiler :: Text -> Text
 formatSpoiler = T.strip . T.dropWhile (== ':') 
 
-postSpoilerToSlack :: Spoiler -> Text -> Handler Status
-postSpoilerToSlack spoiler channel = do
-    let slackMessage = A.object [ "text" A..= ("Spoiler for: " ++ spoilerDescription spoiler)
+postSpoilerToSlack :: Spoiler -> Text -> Text -> Handler Status
+postSpoilerToSlack spoiler user channel = do
+    let slackMessage = A.object [ "text" A..= (user ++ " posted a spoiler: " ++ spoilerDescription spoiler)
                                 , "channel" A..= channel
+                                , "username" A..= ("spoiler-bot" :: Value)
+                                , "icon_emoji" A..= (":question:" :: Value)
                                 , ("unfurl_links","false")
                                 , ("unfurl_media","false")
                                 , "attachments" A..= [ A.object [("text" :: Text) A..= ("\n\n\n\n\n" ++ (spoilerText spoiler)) ] ]
@@ -71,7 +73,7 @@ postSpoilerR = do
 
     let spoiler = Spoiler description formattedSpoilerText
 
-    status <- postSpoilerToSlack spoiler spoilerChannelId
+    status <- postSpoilerToSlack spoiler spoilerUserName spoilerChannelId
 
     case statusIsSuccessful status of
         True -> return ""
